@@ -1,0 +1,199 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-sans font-medium text-forest antialiased;
+    background-color: #ffffff;
+    background-image:
+      linear-gradient(rgba(244, 249, 245, 0.1), rgba(244, 249, 245, 0.1)),
+      linear-gradient(rgba(143, 188, 143, 0.04), rgba(143, 188, 143, 0.04));
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: rgba(143, 188, 143, 0.45);
+    color: #1a3a2b;
+  }
+
+  strong,
+  .em-bold {
+    @apply font-bold text-forest;
+  }
+}
+
+@layer components {
+  .pro-card {
+    @apply relative overflow-hidden rounded-leaf border border-moss/30 bg-white/90 shadow-leaf transition-all duration-500;
+  }
+
+  .pro-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      120deg,
+      transparent 20%,
+      rgba(143, 188, 143, 0.45) 50%,
+      transparent 80%
+    );
+    background-size: 200% 200%;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    animation: shimmer-border 4s linear infinite;
+    pointer-events: none;
+  }
+
+  .pro-card:hover::before {
+    opacity: 1;
+  }
+
+  .pro-card:hover {
+    @apply border-moss/45 shadow-leaf-hover;
+    transform: translateY(-4px);
+  }
+
+  .section-title {
+    @apply font-display text-[clamp(2rem,4vw,3rem)] font-semibold text-forest;
+  }
+
+  .leaf-dot {
+    @apply h-1.5 w-1.5 shrink-0 rounded-full bg-moss;
+    box-shadow: 0 0 8px rgba(143, 188, 143, 0.6);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .green-wash {
+    background-color: rgba(244, 249, 245, 0.1);
+  }
+
+  .marquee-track {
+    animation: marquee 36s linear infinite;
+  }
+
+  .marquee-track:hover {
+    animation-play-state: paused;
+  }
+
+  .float-leaf {
+    animation: float-leaf 6s ease-in-out infinite;
+  }
+
+  .pulse-ring {
+    animation: pulse-ring 2.5s ease-out infinite;
+  }
+
+  .typewriter-cursor {
+    height: 0.85em;
+  }
+
+  .typewriter-cursor-blink {
+    animation: cursor-blink 1s step-end infinite;
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes shimmer-border {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes float-leaf {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-18px) rotate(8deg);
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.6;
+  }
+  70% {
+    transform: scale(1.15);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.15);
+    opacity: 0;
+  }
+}
+
+@keyframes cursor-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes leaf-fall {
+  0% {
+    transform: translateY(-10%) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110%) rotate(360deg);
+    opacity: 0.6;
+  }
+}
+
+.leaf-falling {
+  animation: leaf-fall linear forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .marquee-track,
+  .float-leaf,
+  .pulse-ring,
+  .leaf-falling {
+    animation: none !important;
+  }
+
+  .pro-card:hover {
+    transform: none;
+  }
+
+  .typewriter-cursor-blink {
+    animation: none;
+    opacity: 1;
+  }
+}
