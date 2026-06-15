@@ -17,7 +17,7 @@ export default function Nav() {
   return (
     <>
       <motion.header
-        initial={{ y: -20, opacity: 0 }}
+        initial={{ y: -12, opacity: 1 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         className={`fixed inset-x-0 top-0 z-50 border-b transition-all duration-500 ${
@@ -27,9 +27,7 @@ export default function Nav() {
         }`}
       >
         <div className="mx-auto flex h-[84px] max-w-6xl items-center justify-between gap-4 px-6 lg:px-10">
-          <motion.div whileHover={{ scale: 1.02 }}>
-            <Logo size="md" showWordmark />
-          </motion.div>
+          <Logo size="md" showWordmark priority />
 
           <nav className="hidden items-center gap-4 xl:flex xl:gap-7">
             {navLinks.map((link) => (

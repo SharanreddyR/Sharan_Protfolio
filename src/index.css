@@ -139,32 +139,38 @@
     box-shadow: 0 0 8px rgba(143, 188, 143, 0.6);
   }
 
+  .logo-mark {
+    @apply isolate overflow-visible;
+  }
+
   .logo-mark-glow-outer {
-    @apply pointer-events-none absolute inset-[-14px] rounded-full;
-    background: radial-gradient(circle at 50% 48%, rgba(143, 188, 143, 0.42), transparent 72%);
-    filter: blur(16px);
-    animation: logo-glow-pulse 3.2s ease-in-out infinite;
+    @apply pointer-events-none absolute inset-[-10px] z-0 rounded-full opacity-80;
+    background: radial-gradient(circle at 50% 48%, rgba(143, 188, 143, 0.38), transparent 72%);
+    filter: blur(14px);
   }
 
   .logo-mark-glow {
-    @apply pointer-events-none absolute inset-[-8px] rounded-full;
-    background: radial-gradient(circle at 50% 45%, rgba(143, 188, 143, 0.55), rgba(26, 58, 43, 0.12) 58%, transparent 75%);
-    filter: blur(10px);
-    animation: logo-glow-pulse 3.2s ease-in-out infinite 0.4s;
+    @apply pointer-events-none absolute inset-[-6px] z-0 rounded-full opacity-90;
+    background: radial-gradient(circle at 50% 45%, rgba(143, 188, 143, 0.5), rgba(26, 58, 43, 0.1) 58%, transparent 75%);
+    filter: blur(8px);
   }
 
   .group:hover .logo-mark-glow-outer,
   .logo-mark:hover .logo-mark-glow-outer {
-    background: radial-gradient(circle at 50% 48%, rgba(143, 188, 143, 0.58), transparent 72%);
+    opacity: 1;
+    background: radial-gradient(circle at 50% 48%, rgba(143, 188, 143, 0.55), transparent 72%);
   }
 
   .group:hover .logo-mark-glow,
   .logo-mark:hover .logo-mark-glow {
-    background: radial-gradient(circle at 50% 45%, rgba(143, 188, 143, 0.72), rgba(26, 58, 43, 0.16) 58%, transparent 75%);
+    opacity: 1;
+    background: radial-gradient(circle at 50% 45%, rgba(143, 188, 143, 0.65), rgba(26, 58, 43, 0.14) 58%, transparent 75%);
   }
 
   .logo-mark-image {
-    filter: drop-shadow(0 0 10px rgba(143, 188, 143, 0.45)) drop-shadow(0 8px 18px rgba(26, 58, 43, 0.2));
+    @apply relative z-20 block h-full w-full object-contain;
+    box-shadow: 0 4px 14px rgba(26, 58, 43, 0.15);
+    transform: translateZ(0);
   }
 
   .logo-wordmark-stack {
