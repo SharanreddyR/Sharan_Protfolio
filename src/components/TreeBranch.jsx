@@ -163,7 +163,7 @@ function BranchCard({ branch, expanded, setExpanded, align }) {
 
               {branch.link && (
                 <div className={`mt-5 ${align === 'right' ? 'lg:flex lg:justify-end' : ''}`}>
-                  <LeafButton href={branch.link} variant="outline" external className="!px-5 !py-2.5 !text-xs">
+                  <LeafButton icon="external" href={branch.link} variant="outline" external className="!px-5 !py-2.5 !text-xs">
                     {branch.linkLabel}
                   </LeafButton>
                 </div>

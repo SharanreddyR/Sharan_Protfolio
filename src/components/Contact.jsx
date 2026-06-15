@@ -1,86 +1,227 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import LeafButton from './LeafButton'
-import { profile, socialLinks } from '../data/content'
+import ProfilePhoto from './ProfilePhoto'
+import { IconMail, IconPhone } from './Icons'
+import { profile, socialLinks, contactLinks } from '../data/content'
+
+const socialIconMap = {
+  LinkedIn: 'linkedin',
+  GitHub: 'github',
+}
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] } },
+}
+
+function ContactTile({ href, label, value, sublabel, icon: Icon, external = false, delay = 0 }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.55, delay, ease: [0.22, 1, 0.36, 1] }}
+      className="relative z-10"
+    >
+      <a
+        href={href}
+        target={external ? '_blank' : undefined}
+        rel={external ? 'noopener noreferrer' : undefined}
+        className="contact-premium-tile group block no-underline active:scale-[0.98]"
+      >
+        <span className="contact-premium-tile-shine" aria-hidden="true" />
+        <div className="flex items-start justify-between gap-4">
+          <div className="min-w-0">
+            <span className="contact-premium-tile-icon" aria-hidden="true">
+              <Icon className="h-5 w-5" />
+            </span>
+            <p className="mt-4 text-[0.58rem] font-bold uppercase tracking-[0.24em] text-forest/40">{label}</p>
+            <p className="mt-2 truncate text-base font-bold text-forest transition-colors group-hover:text-[#143022]">
+              {value}
+            </p>
+            <p className="mt-1.5 text-xs font-medium text-moss">{sublabel}</p>
+          </div>
+          <span className="contact-premium-tile-arrow" aria-hidden="true">
+            →
+          </span>
+        </div>
+      </a>
+    </motion.div>
+  )
+}
+
+function ContactIdentity() {
+  return (
+    <motion.aside
+      variants={fadeUp}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true }}
+      className="contact-identity-panel"
+    >
+      <div className="contact-identity-photo-wrap">
+        <ProfilePhoto size="contact" hoverZoom className="!mx-0" />
+      </div>
+
+      <div className="mt-6 text-center lg:text-left">
+        <p className="font-display text-2xl font-bold tracking-tight text-forest">{profile.name}</p>
+        <p className="mt-1 text-sm font-semibold text-moss">{profile.role}</p>
+      </div>
+
+      <div className="mt-5 flex flex-wrap justify-center gap-2 lg:justify-start">
+        <span className="badge-live">{profile.availability}</span>
+        <span className="contact-trust-pill">{profile.responseNote}</span>
+      </div>
+
+      <ul className="mt-6 space-y-3 border-t border-moss/15 pt-6">
+        {[
+          { label: 'Location', value: profile.address },
+          { label: 'Timezone', value: profile.timezone },
+        ].map((item) => (
+          <li key={item.label} className="flex items-start gap-3 text-left">
+            <span className="leaf-dot mt-1.5" />
+            <div>
+              <p className="text-[0.58rem] font-bold uppercase tracking-[0.2em] text-forest/40">{item.label}</p>
+              <p className="mt-1 text-sm font-semibold leading-relaxed text-forest/75">{item.value}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+
+      <div className="mt-6 flex flex-wrap justify-center gap-2 lg:justify-start">
+        {profile.domains.map((domain) => (
+          <span key={domain} className="tag-pill">
+            {domain}
+          </span>
+        ))}
+      </div>
+    </motion.aside>
+  )
+}
 
 export default function Contact() {
   const [copied, setCopied] = useState(false)
 
-  const copyEmail = async () => {
+  const copyEmail = async (e) => {
+    e.preventDefault()
     try {
       await navigator.clipboard.writeText(profile.email)
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
     } catch {
-      window.location.href = `mailto:${profile.email}`
+      window.location.href = contactLinks.mailto
     }
   }
 
   return (
-    <section id="contact" className="px-6 py-20 lg:px-10 lg:py-28">
-      <motion.div
-        initial={{ opacity: 0, y: 32 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
-        className="mx-auto max-w-2xl rounded-leaf border border-moss/35 green-wash px-8 py-14 text-center shadow-leaf backdrop-blur-sm lg:px-14 lg:py-16"
-      >
-        <p className="text-xs font-semibold uppercase tracking-[0.28em] text-forest/45">The Gateway</p>
-        <h2 className="mt-4 font-display text-[clamp(2rem,4vw,2.75rem)] font-semibold text-forest">
-          Let&apos;s grow something <span className="font-bold text-forest">together</span>
-        </h2>
-        <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-forest/75">
-          <strong>{profile.availability}.</strong> {profile.responseNote}. Reach out by{' '}
-          <strong>email</strong>, <strong>phone</strong>, or <strong>WhatsApp</strong>.
-        </p>
+    <section id="contact" className="contact-premium-section section-block px-6 py-20 lg:px-10 lg:py-28">
+      <div className="contact-premium-ambient" aria-hidden="true" />
 
-        <div className="mt-8 grid gap-3 sm:grid-cols-2">
-          <div className="rounded-leaf-sm border border-moss/25 bg-white/80 p-4 text-left">
-            <p className="text-[0.6rem] font-bold uppercase tracking-widest text-forest/45">Email</p>
-            <p className="mt-1 text-sm font-semibold text-forest">{profile.email}</p>
-          </div>
-          <div className="rounded-leaf-sm border border-moss/25 bg-white/80 p-4 text-left">
-            <p className="text-[0.6rem] font-bold uppercase tracking-widest text-forest/45">Phone</p>
-            <p className="mt-1 text-sm font-semibold text-forest">{profile.phone}</p>
-          </div>
-        </div>
-
-        <div className="mt-8 space-y-4">
-          <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-            <LeafButton href={`mailto:${profile.email}`}>Send Email</LeafButton>
-            <LeafButton type="button" onClick={copyEmail} variant="outline">
-              {copied ? 'Copied!' : 'Copy Email'}
-            </LeafButton>
-          </div>
-          <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-            <LeafButton href={`tel:${profile.phoneTel}`} variant="outline">
-              Call Now
-            </LeafButton>
-            <LeafButton href={profile.whatsapp} variant="outline" external>
-              WhatsApp
-            </LeafButton>
-          </div>
-          <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
-            {socialLinks.map((link) => (
-              <LeafButton key={link.href} href={link.href} variant="ghost" external>
-                {link.label}
-              </LeafButton>
-            ))}
-            <LeafButton href={profile.resumeUrl} variant="ghost" external>
-              Resume
-            </LeafButton>
-          </div>
-        </div>
-
-        <div className="mt-10 border-t border-moss/15 pt-8 text-left sm:text-center">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-forest/40">
-            Address & Timezone
+      <div className="relative mx-auto max-w-6xl">
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="mx-auto mb-12 max-w-2xl text-center lg:mb-14"
+        >
+          <p className="eyebrow justify-center">The Gateway</p>
+          <h2 className="section-title mt-4">
+            Let&apos;s grow something <span className="text-gradient">together</span>
+          </h2>
+          <p className="mt-4 text-sm leading-relaxed text-forest/75 lg:text-base">
+            Ready to start your next project? Reach out directly — I&apos;m available for{' '}
+            <strong>freelance</strong>, <strong>contract</strong>, and <strong>remote</strong> work.
           </p>
-          <p className="mt-2 text-sm font-semibold leading-relaxed text-forest/75">{profile.address}</p>
-          <p className="mt-2 text-sm font-medium text-forest/65">{profile.timezone}</p>
-          <p className="mt-3 text-sm font-medium text-forest/70">{profile.domains.join(' · ')}</p>
+        </motion.div>
+
+        <div className="grid items-start gap-8 lg:grid-cols-[minmax(280px,320px)_1fr] lg:gap-10">
+          <ContactIdentity />
+
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            transition={{ delay: 0.08 }}
+            className="contact-main-panel relative z-10"
+          >
+            <div className="contact-main-panel-head">
+              <p className="text-[0.58rem] font-bold uppercase tracking-[0.24em] text-forest/40">Direct Contact</p>
+              <p className="mt-2 text-sm leading-relaxed text-forest/70">
+                Tap a channel below to connect instantly — email opens compose, phone opens your dialer.
+              </p>
+            </div>
+
+            <div className="mt-8 grid gap-4 sm:grid-cols-2">
+              <ContactTile
+                href={contactLinks.mailto}
+                label="Email"
+                value={profile.email}
+                sublabel="Tap to open compose"
+                icon={IconMail}
+                delay={0.05}
+              />
+              <ContactTile
+                href={contactLinks.tel}
+                label="Phone"
+                value={profile.phone}
+                sublabel="Tap to open dial pad"
+                icon={IconPhone}
+                delay={0.1}
+              />
+            </div>
+
+            <div className="mt-10 border-t border-moss/15 pt-8">
+              <p className="text-[0.58rem] font-bold uppercase tracking-[0.24em] text-forest/40">Quick Actions</p>
+              <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                {/* <LeafButton icon="mail" href={`mailto:${profile.email}?subject=Project%20Inquiry&body=Hi%20Sharan%2C%0A%0A`}>
+                  Compose Email
+                </LeafButton> */}
+                {/* <LeafButton icon="phone" href={`tel:${profile.phoneTel}`} variant="outline">
+                  Call Now
+                </LeafButton> */}
+                {/* <LeafButton icon="whatsapp" href={profile.whatsapp} variant="outline" external>
+                  WhatsApp
+                </LeafButton> */}
+                <LeafButton icon="download" href={profile.resumeUrl} download={profile.resumeFileName} variant="outline">
+                  Download Resume
+                </LeafButton>
+                <LeafButton type="button" icon={copied ? 'check' : 'copy'} onClick={copyEmail} variant="ghost">
+                  {copied ? 'Email Copied!' : 'Copy Email'}
+                </LeafButton>
+              </div>
+            </div>
+
+            <div className="mt-10 border-t border-moss/15 pt-8">
+              <p className="text-[0.58rem] font-bold uppercase tracking-[0.24em] text-forest/40">Connect Online</p>
+              <div className="mt-5 flex flex-wrap gap-3">
+                {socialLinks.map((link) => (
+                  <LeafButton
+                    key={link.href}
+                    href={link.href}
+                    icon={socialIconMap[link.label]}
+                    variant="ghost"
+                    external
+                    className="!px-5 !py-2.5 !text-xs"
+                  >
+                    {link.label}
+                  </LeafButton>
+                ))}
+              </div>
+            </div>
+
+            <div className="contact-main-panel-foot">
+              <p className="text-xs font-medium leading-relaxed text-forest/65">
+                <strong className="text-forest">{profile.engagement.slice(0, 2).join(' · ')}</strong>
+                {' · '}
+                {profile.engagement.slice(2).join(' · ')}
+              </p>
+            </div>
+          </motion.div>
         </div>
-      </motion.div>
+      </div>
     </section>
   )
 }

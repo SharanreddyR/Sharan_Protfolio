@@ -12,11 +12,9 @@ export default function Services() {
           viewport={{ once: true }}
           className="mb-14 max-w-2xl"
         >
-          <span className="text-xs font-medium uppercase tracking-[0.28em] text-forest/45">
-            What I Offer
-          </span>
-          <h2 className="mt-4 font-display text-[clamp(2rem,4vw,3.25rem)] font-semibold text-forest">
-            Services for <span className="font-bold text-forest">clients</span>
+          <span className="eyebrow">What I Offer</span>
+          <h2 className="section-title mt-4">
+            Services for <span className="text-gradient">clients</span>
           </h2>
           <p className="mt-4 text-sm leading-relaxed text-forest/75 lg:text-base">
             Hire me for <strong>end-to-end product development</strong> — from mobile apps and LMS modules to{' '}
@@ -70,7 +68,9 @@ export default function Services() {
             ))}
           </ul>
           <div className="mt-8">
-            <LeafButton href="#contact">Discuss Your Project</LeafButton>
+            <LeafButton icon="mail" href="#contact">
+              Discuss Your Project
+            </LeafButton>
           </div>
         </motion.div>
       </div>

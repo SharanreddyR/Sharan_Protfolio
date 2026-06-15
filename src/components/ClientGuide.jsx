@@ -19,7 +19,7 @@ export default function ClientGuide() {
             <span className="text-xs font-semibold uppercase tracking-[0.28em] text-forest/45">
               How We Work
             </span>
-            <h2 className="mt-4 font-display text-[clamp(2rem,4vw,3rem)] font-semibold text-forest">
+            <h2 className="mt-4 font-display text-[clamp(2rem,4vw,3rem)] font-bold text-forest">
               Simple process, <span className="font-bold text-forest">clear outcomes</span>
             </h2>
           </motion.div>
@@ -70,7 +70,7 @@ export default function ClientGuide() {
             <span className="text-xs font-semibold uppercase tracking-[0.28em] text-forest/45">
               Client FAQ
             </span>
-            <h2 className="mt-4 font-display text-[clamp(2rem,4vw,2.75rem)] font-semibold text-forest">
+            <h2 className="mt-4 font-display text-[clamp(2rem,4vw,2.75rem)] font-bold text-forest">
               Questions clients <span className="font-bold text-forest">often ask</span>
             </h2>
           </motion.div>
@@ -119,7 +119,7 @@ export default function ClientGuide() {
             viewport={{ once: true }}
             className="mt-10 text-center"
           >
-            <LeafButton href="#contact">Still have questions? Contact me</LeafButton>
+            <LeafButton icon="mail" href="#contact">Still have questions? Contact me</LeafButton>
           </motion.div>
         </div>
       </section>

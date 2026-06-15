@@ -9,10 +9,11 @@
 
   body {
     @apply font-sans font-medium text-forest antialiased;
-    background-color: #ffffff;
+    background-color: #fafdfb;
     background-image:
-      linear-gradient(rgba(244, 249, 245, 0.1), rgba(244, 249, 245, 0.1)),
-      linear-gradient(rgba(143, 188, 143, 0.04), rgba(143, 188, 143, 0.04));
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(143, 188, 143, 0.12), transparent 55%),
+      radial-gradient(ellipse 40% 30% at 100% 20%, rgba(244, 249, 245, 0.9), transparent 50%),
+      linear-gradient(rgba(244, 249, 245, 0.12), rgba(244, 249, 245, 0.12));
     min-height: 100vh;
     overflow-x: hidden;
   }
@@ -29,8 +30,78 @@
 }
 
 @layer components {
+  .section-hero {
+    @apply pb-20 pt-[calc(84px+4rem)] lg:pb-28 lg:pt-[calc(84px+5.5rem)];
+  }
+
+  .section-block {
+    @apply relative;
+  }
+
+  .hero-mesh {
+    @apply pointer-events-none absolute inset-0;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(143, 188, 143, 0.08), transparent 28%),
+      radial-gradient(circle at 85% 10%, rgba(26, 58, 43, 0.04), transparent 24%);
+  }
+
+  .eyebrow {
+    @apply inline-flex text-xs font-bold uppercase tracking-[0.28em] text-forest/45;
+  }
+
+  .badge-live {
+    @apply rounded-leaf-sm border border-moss/40 bg-sage/70 px-3 py-1 text-[0.62rem] font-bold uppercase tracking-wider text-forest/75 backdrop-blur-sm;
+  }
+
+  .tag-pill {
+    @apply rounded-leaf-sm border border-moss/30 bg-white/70 px-3 py-1.5 text-[0.65rem] font-semibold uppercase tracking-wider text-forest/70 shadow-sm backdrop-blur-sm transition-colors hover:border-moss/50 hover:bg-sage/60;
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-forest via-[#2d5a45] to-moss bg-clip-text font-bold text-transparent;
+  }
+
+  .glass-panel {
+    @apply relative overflow-hidden rounded-leaf border border-moss/30 bg-white/75 shadow-leaf backdrop-blur-xl;
+  }
+
+  .glass-panel::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.55), transparent 45%, rgba(143, 188, 143, 0.08));
+    pointer-events: none;
+  }
+
+  .contact-tile {
+    @apply relative overflow-hidden rounded-leaf border border-moss/25 bg-white/85 p-5 shadow-sm backdrop-blur-sm transition-all duration-300;
+  }
+
+  .contact-tile:hover {
+    @apply border-moss/45 bg-white shadow-leaf;
+    box-shadow: 0 12px 40px rgba(26, 58, 43, 0.1);
+  }
+
+  .contact-tile-arrow {
+    @apply flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-moss/25 bg-sage/40 text-sm font-bold text-forest/50 transition-all duration-300;
+  }
+
+  .contact-tile:hover .contact-tile-arrow {
+    @apply border-moss/40 bg-forest text-white;
+    transform: translateX(2px);
+  }
+
+  .contact-tile-icon {
+    @apply flex h-11 w-11 shrink-0 items-center justify-center rounded-leaf-sm border border-moss/25 bg-sage/50 text-forest transition-colors duration-300;
+  }
+
+  .contact-tile:hover .contact-tile-icon {
+    @apply border-moss/40 bg-forest text-white;
+  }
+
   .pro-card {
-    @apply relative overflow-hidden rounded-leaf border border-moss/30 bg-white/90 shadow-leaf transition-all duration-500;
+    @apply relative overflow-hidden rounded-leaf border border-moss/25 bg-white/85 shadow-leaf backdrop-blur-sm transition-all duration-500;
   }
 
   .pro-card::before {
@@ -39,12 +110,7 @@
     inset: 0;
     border-radius: inherit;
     padding: 1px;
-    background: linear-gradient(
-      120deg,
-      transparent 20%,
-      rgba(143, 188, 143, 0.45) 50%,
-      transparent 80%
-    );
+    background: linear-gradient(120deg, transparent 20%, rgba(143, 188, 143, 0.5) 50%, transparent 80%);
     background-size: 200% 200%;
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
@@ -61,16 +127,195 @@
 
   .pro-card:hover {
     @apply border-moss/45 shadow-leaf-hover;
-    transform: translateY(-4px);
+    transform: translateY(-5px);
   }
 
   .section-title {
-    @apply font-display text-[clamp(2rem,4vw,3rem)] font-semibold text-forest;
+    @apply font-display text-[clamp(2rem,4vw,3rem)] font-bold leading-tight text-forest;
   }
 
   .leaf-dot {
     @apply h-1.5 w-1.5 shrink-0 rounded-full bg-moss;
     box-shadow: 0 0 8px rgba(143, 188, 143, 0.6);
+  }
+
+  .logo-mark-glow-outer {
+    @apply pointer-events-none absolute inset-[-14px] rounded-full;
+    background: radial-gradient(circle at 50% 48%, rgba(143, 188, 143, 0.42), transparent 72%);
+    filter: blur(16px);
+    animation: logo-glow-pulse 3.2s ease-in-out infinite;
+  }
+
+  .logo-mark-glow {
+    @apply pointer-events-none absolute inset-[-8px] rounded-full;
+    background: radial-gradient(circle at 50% 45%, rgba(143, 188, 143, 0.55), rgba(26, 58, 43, 0.12) 58%, transparent 75%);
+    filter: blur(10px);
+    animation: logo-glow-pulse 3.2s ease-in-out infinite 0.4s;
+  }
+
+  .group:hover .logo-mark-glow-outer,
+  .logo-mark:hover .logo-mark-glow-outer {
+    background: radial-gradient(circle at 50% 48%, rgba(143, 188, 143, 0.58), transparent 72%);
+  }
+
+  .group:hover .logo-mark-glow,
+  .logo-mark:hover .logo-mark-glow {
+    background: radial-gradient(circle at 50% 45%, rgba(143, 188, 143, 0.72), rgba(26, 58, 43, 0.16) 58%, transparent 75%);
+  }
+
+  .logo-mark-image {
+    filter: drop-shadow(0 0 10px rgba(143, 188, 143, 0.45)) drop-shadow(0 8px 18px rgba(26, 58, 43, 0.2));
+  }
+
+  .logo-wordmark-stack {
+    gap: 0;
+  }
+
+  .logo-designation {
+    margin-top: 2px;
+  }
+
+  .logo-wordmark {
+    background: linear-gradient(120deg, #1a3a2b 0%, #2d5a45 55%, #1a3a2b 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .profile-photo {
+    @apply relative mx-auto shrink-0;
+  }
+
+  .profile-photo-ring {
+    @apply pointer-events-none absolute -inset-1 rounded-leaf border-2 border-moss/45;
+    background: linear-gradient(145deg, rgba(143, 188, 143, 0.25), rgba(26, 58, 43, 0.08));
+  }
+
+  .profile-photo-glow {
+    @apply pointer-events-none absolute -inset-4 rounded-leaf opacity-70;
+    background: radial-gradient(circle at 50% 40%, rgba(143, 188, 143, 0.28), transparent 68%);
+    filter: blur(14px);
+  }
+
+  .profile-photo-badge {
+    @apply absolute -bottom-3 left-1/2 z-20 flex -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-leaf-sm border border-moss/35 bg-white/95 px-3 py-1.5 text-[0.62rem] font-bold uppercase tracking-[0.14em] text-forest shadow-leaf backdrop-blur-sm;
+  }
+
+  .profile-photo-image {
+    @apply relative z-10 h-full w-full object-cover object-top shadow-leaf-hover;
+    transform-origin: center top;
+  }
+
+  .profile-photo-hover-zoom .profile-photo-clip {
+    @apply relative z-10 block h-full w-full cursor-pointer overflow-hidden rounded-leaf border-0 bg-transparent p-0;
+  }
+
+  .profile-photo-hover-zoom .profile-photo-clip:focus-visible {
+    @apply outline-none ring-2 ring-moss ring-offset-2;
+  }
+
+  .profile-photo-hover-zoom .profile-photo-image {
+    @apply rounded-none;
+  }
+
+  .profile-photo:not(.profile-photo-hover-zoom) .profile-photo-image {
+    @apply rounded-leaf;
+  }
+
+  .contact-premium-section {
+    @apply relative overflow-hidden;
+    background: linear-gradient(180deg, rgba(244, 249, 245, 0.65) 0%, rgba(250, 253, 251, 0.35) 45%, transparent 100%);
+  }
+
+  .contact-premium-ambient {
+    @apply pointer-events-none absolute inset-0;
+    background:
+      radial-gradient(circle at 12% 20%, rgba(143, 188, 143, 0.14), transparent 32%),
+      radial-gradient(circle at 88% 12%, rgba(26, 58, 43, 0.06), transparent 28%),
+      radial-gradient(circle at 50% 100%, rgba(143, 188, 143, 0.1), transparent 40%);
+  }
+
+  .contact-identity-panel {
+    @apply relative overflow-hidden rounded-leaf border border-moss/30 bg-white/80 p-6 shadow-leaf backdrop-blur-xl lg:sticky lg:top-28 lg:p-7;
+  }
+
+  .contact-identity-panel::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.72), transparent 42%, rgba(143, 188, 143, 0.08));
+    pointer-events: none;
+  }
+
+  .contact-identity-photo-wrap {
+    @apply relative z-10 flex justify-center;
+  }
+
+  .contact-trust-pill {
+    @apply rounded-leaf-sm border border-moss/25 bg-sage/50 px-3 py-1 text-[0.58rem] font-semibold text-forest/65;
+  }
+
+  .contact-main-panel {
+    @apply relative overflow-hidden rounded-leaf border border-moss/30 bg-white/80 p-7 shadow-leaf backdrop-blur-xl lg:p-9;
+  }
+
+  .contact-main-panel::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.55), transparent 48%, rgba(143, 188, 143, 0.06));
+    pointer-events: none;
+  }
+
+  .contact-main-panel-head,
+  .contact-main-panel-foot {
+    @apply relative z-10;
+  }
+
+  .contact-main-panel-foot {
+    @apply mt-10 rounded-leaf-sm border border-moss/20 bg-sage/40 px-5 py-4;
+  }
+
+  .contact-premium-tile {
+    @apply relative z-10 block overflow-hidden rounded-leaf border border-moss/25 bg-white/90 p-6 shadow-sm backdrop-blur-sm transition-all duration-500;
+  }
+
+  .contact-premium-tile-shine {
+    @apply pointer-events-none absolute inset-x-0 top-0 h-px;
+    background: linear-gradient(90deg, transparent, rgba(143, 188, 143, 0.65), transparent);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .contact-premium-tile:hover {
+    @apply border-moss/45 bg-white shadow-leaf;
+    box-shadow: 0 16px 44px rgba(26, 58, 43, 0.12);
+    transform: translateY(-5px);
+  }
+
+  .contact-premium-tile:hover .contact-premium-tile-shine {
+    opacity: 1;
+  }
+
+  .contact-premium-tile-icon {
+    @apply inline-flex h-12 w-12 items-center justify-center rounded-leaf-sm border border-moss/25 text-forest transition-all duration-300;
+    background: linear-gradient(145deg, rgba(244, 249, 245, 0.95), rgba(143, 188, 143, 0.22));
+  }
+
+  .contact-premium-tile:hover .contact-premium-tile-icon {
+    @apply border-moss/45 bg-forest text-white;
+    box-shadow: 0 8px 20px rgba(26, 58, 43, 0.18);
+  }
+
+  .contact-premium-tile-arrow {
+    @apply flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-moss/25 bg-sage/40 text-sm font-bold text-forest/45 transition-all duration-300;
+  }
+
+  .contact-premium-tile:hover .contact-premium-tile-arrow {
+    @apply border-moss/45 bg-forest text-white;
+    transform: translateX(3px);
   }
 }
 
@@ -80,7 +325,7 @@
   }
 
   .green-wash {
-    background-color: rgba(244, 249, 245, 0.1);
+    background: linear-gradient(180deg, rgba(244, 249, 245, 0.55), rgba(244, 249, 245, 0.15));
   }
 
   .marquee-track {
@@ -161,19 +406,16 @@
   }
 }
 
-@keyframes leaf-fall {
-  0% {
-    transform: translateY(-10%) rotate(0deg);
-    opacity: 1;
-  }
+@keyframes logo-glow-pulse {
+  0%,
   100% {
-    transform: translateY(110%) rotate(360deg);
-    opacity: 0.6;
+    opacity: 0.55;
+    transform: scale(0.94);
   }
-}
-
-.leaf-falling {
-  animation: leaf-fall linear forwards;
+  50% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -184,11 +426,13 @@
   .marquee-track,
   .float-leaf,
   .pulse-ring,
-  .leaf-falling {
+  .logo-mark-glow,
+  .logo-mark-glow-outer {
     animation: none !important;
   }
 
-  .pro-card:hover {
+  .pro-card:hover,
+  .contact-tile:hover {
     transform: none;
   }
 

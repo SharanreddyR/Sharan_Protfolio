@@ -1,0 +1,16 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Sharan Reddy R">
+  <defs>
+    <linearGradient id="bg" x1="8" y1="6" x2="56" y2="58" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1A3A2B"/>
+      <stop offset="1" stop-color="#2D5A45"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="16" y1="10" x2="40" y2="36" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <path d="M32 4C18 4 8 16 8 28C8 40 18 52 32 60C46 52 56 40 56 28C56 16 46 4 32 4Z" fill="url(#bg)" stroke="#8FBC8F" stroke-width="2"/>
+  <path d="M32 8C21 8 12 18 12 28C12 37 20 47 32 54C44 47 52 37 52 28C52 18 43 8 32 8Z" fill="url(#shine)"/>
+  <path d="M44 18C44 18 40 14 34 16C28 18 26 24 26 24" stroke="#8FBC8F" stroke-width="1.5" stroke-linecap="round" opacity="0.85"/>
+  <text x="32" y="36" text-anchor="middle" fill="#FFFFFF" font-family="Georgia, serif" font-size="22" font-weight="600" letter-spacing="-0.04em">SR</text>
+</svg>

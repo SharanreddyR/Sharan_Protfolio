@@ -16,7 +16,7 @@ export default function TreeTimeline() {
           <p className="text-xs font-medium uppercase tracking-[0.28em] text-forest/45">
             Evergreen Architecture
           </p>
-          <h2 className="mt-4 font-display text-[clamp(2rem,4vw,3rem)] font-semibold text-forest">
+          <h2 className="mt-4 font-display text-[clamp(2rem,4vw,3rem)] font-bold text-forest">
             The journey, <span className="font-bold text-forest">branch by branch</span>
           </h2>
           <p className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-forest/75">

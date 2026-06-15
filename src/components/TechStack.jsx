@@ -11,11 +11,9 @@ export default function TechStack() {
           viewport={{ once: true }}
           className="mb-12 max-w-2xl"
         >
-          <span className="text-xs font-semibold uppercase tracking-[0.28em] text-forest/45">
-            Tech Stack
-          </span>
-          <h2 className="mt-4 font-display text-[clamp(2rem,4vw,3rem)] font-semibold text-forest">
-            Tools I <span className="font-bold text-forest">work with</span>
+          <span className="eyebrow">Tech Stack</span>
+          <h2 className="section-title mt-4">
+            Tools I <span className="text-gradient">work with</span>
           </h2>
           <p className="mt-4 text-sm leading-relaxed text-forest/75">
             A practical stack shaped by real projects — so clients know exactly what I can deliver.

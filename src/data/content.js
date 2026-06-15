@@ -3,7 +3,7 @@ export const profile = {
   role: 'Full Stack Developer',
   location: 'Bengaluru, Karnataka, India',
   address:
-    '1087, 8th Cross Rd, Ashok Nagar, Banashankari 1st Stage, Banashankari, Bengaluru, Karnataka 560050',
+    'Bengaluru, Karnataka',
   availability: 'Open for Freelance Projects',
   email: 'sharanreddy26372@gmail.com',
   phone: '+91 9901414072',
@@ -13,9 +13,17 @@ export const profile = {
   github: 'https://github.com/SharanreddyR',
   domains: ['Health-Tech', 'Ed-Tech', 'Enterprise SaaS'],
   responseNote: 'Typically responds within 24 hours',
-  timezone: 'IST (UTC+5:30) · Bengaluru',
-  resumeUrl: 'https://github.com/SharanreddyR/resume',
+  timezone: 'IST (UTC+5:30) · India',
+  resumeUrl: '/Sharan_Reddy.pdf',
+  resumeFileName: 'Sharan_Reddy_Resume.pdf',
+  photoUrl: '/sharan-profile.png',
+  photoAlt: 'Sharan Reddy R — Full Stack Developer professional portrait',
   engagement: ['Freelance Projects', 'Contract Work', 'Remote Collaboration', 'Part-time Consulting'],
+}
+
+export const contactLinks = {
+  mailto: `mailto:${profile.email}?subject=${encodeURIComponent('Project Inquiry')}&body=${encodeURIComponent('Hi Sharan,\n\n')}`,
+  tel: `tel:${profile.phoneTel}`,
 }
 
 export const techStack = [
@@ -331,7 +339,6 @@ export const navLinks = [
   { href: '#services', label: 'Services' },
   { href: '#stack', label: 'Skills' },
   { href: '#tree', label: 'Journey' },
-  { href: '#play', label: 'Play' },
   { href: '#faq', label: 'FAQ' },
   { href: '#contact', label: 'Contact' },
 ]
