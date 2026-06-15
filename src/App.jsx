@@ -7,7 +7,7 @@ import TechStack from './components/TechStack'
 import TreeTimeline from './components/TreeTimeline'
 import ClientGuide from './components/ClientGuide'
 import Contact from './components/Contact'
-import FloatingContact from './components/FloatingContact'
+import QuickActions from './components/QuickActions'
 import ScrollProgress from './components/ScrollProgress'
 import Logo from './components/Logo'
 import ProfilePhoto from './components/ProfilePhoto'
@@ -18,7 +18,7 @@ export default function App() {
     <>
       <ScrollProgress />
       <Nav />
-      <main>
+      <main className="main-with-dock">
         <Hero />
         <MarqueeTicker />
         <Highlights />
@@ -28,36 +28,25 @@ export default function App() {
         <ClientGuide />
         <Contact />
       </main>
-      <FloatingContact />
+      <QuickActions />
       <footer className="border-t border-moss/20 bg-white/60 px-6 py-12 backdrop-blur-sm lg:px-10">
         <div className="mx-auto max-w-6xl">
           <div className="grid gap-8 md:grid-cols-3 md:items-start">
-            <div className="flex items-start gap-4">
-              <ProfilePhoto size="sm" hoverZoom className="!mx-0 hidden sm:block" />
-              <div>
-                <Logo as="div" size="sm" showWordmark className="!gap-2" />
+            <div className="flex flex-col items-center gap-4 sm:flex-row sm:items-start">
+              <ProfilePhoto size="sm" hoverZoom className="!mx-0 shrink-0" />
+              <div className="text-center sm:text-left">
+                <Logo as="div" size="sm" showWordmark className="!gap-2 justify-center sm:!justify-start" />
+                <p className="mt-2 text-xs text-forest/45">{profile.timezone}</p>
               </div>
             </div>
 
-            <div className="space-y-2">
-              {/* <a
-                href={`mailto:${profile.email}?subject=Project%20Inquiry`}
-                className="block text-sm font-semibold text-forest transition-colors hover:text-moss"
-              >
-                {profile.email}
-              </a>
-              <a
-                href={`tel:${profile.phoneTel}`}
-                className="block text-sm font-semibold text-forest transition-colors hover:text-moss"
-              >
-                {profile.phone}
-              </a> */}
-               <p className="mt-10 border-t border-moss/15 pt-6 text-center text-xs tracking-wide text-forest/45">
-            © 2026 Sharan Reddy R · Built with React, Tailwind & Framer Motion
-          </p>
+            <div className="flex items-end justify-center md:justify-start">
+              <p className="text-center text-xs tracking-wide text-forest/45 md:text-left">
+                © 2026 Sharan Reddy R · Built with React, Tailwind & Framer Motion
+              </p>
             </div>
 
-            <div className="flex flex-wrap gap-4 md:justify-end">
+            <div className="flex flex-wrap justify-center gap-4 md:justify-end">
               {socialLinks.map((link) => (
                 <a
                   key={link.href}
@@ -71,7 +60,6 @@ export default function App() {
               ))}
             </div>
           </div>
-        
         </div>
       </footer>
     </>

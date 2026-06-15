@@ -26,6 +26,33 @@ export const contactLinks = {
   tel: `tel:${profile.phoneTel}`,
 }
 
+export const inquiryTemplates = [
+  {
+    label: 'Mobile App',
+    subject: 'Mobile App Project Inquiry',
+    body: 'Hi Sharan,\n\nI need a mobile app built. Here are the details:\n\n',
+  },
+  {
+    label: 'Web Platform',
+    subject: 'Web Platform Project Inquiry',
+    body: 'Hi Sharan,\n\nI need a web platform. Here are the details:\n\n',
+  },
+  {
+    label: 'Healthcare Tech',
+    subject: 'Healthcare Tech Project Inquiry',
+    body: 'Hi Sharan,\n\nI have a healthcare-related project. Here are the details:\n\n',
+  },
+  {
+    label: 'LMS / Ed-Tech',
+    subject: 'LMS Project Inquiry',
+    body: 'Hi Sharan,\n\nI need LMS or ed-tech development help. Here are the details:\n\n',
+  },
+]
+
+export function getInquiryMailto(template) {
+  return `mailto:${profile.email}?subject=${encodeURIComponent(template.subject)}&body=${encodeURIComponent(template.body)}`
+}
+
 export const techStack = [
   {
     category: 'Mobile',

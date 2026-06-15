@@ -5,7 +5,10 @@ import { profile } from '../data/content'
 const sizes = {
   sm: { wrap: 'w-16 h-16', img: 'w-full h-full' },
   md: { wrap: 'w-28 h-32 sm:w-32 sm:h-36', img: 'w-full h-full' },
-  contact: { wrap: 'w-44 h-52 sm:w-48 sm:h-56 lg:w-full lg:max-w-[280px] lg:h-64', img: 'w-full h-full' },
+  contact: {
+    wrap: 'mx-auto w-[220px] h-[260px] sm:w-[240px] sm:h-[280px] lg:w-full lg:max-w-[280px] lg:h-64',
+    img: 'w-full h-full',
+  },
   lg: { wrap: 'w-56 h-64 sm:w-64 sm:h-72 lg:w-72 lg:h-80', img: 'w-full h-full' },
 }
 
@@ -14,22 +17,21 @@ export default function ProfilePhoto({
   className = '',
   priority = false,
   hoverZoom = false,
+  staticDisplay = false,
 }) {
   const { wrap } = sizes[size] ?? sizes.lg
   const reducedMotion = useReducedMotion()
   const [hovered, setHovered] = useState(false)
   const [active, setActive] = useState(false)
 
-  const motionProps = priority
-    ? {
-        initial: { opacity: 0, scale: 0.94, y: 16 },
-        animate: { opacity: 1, scale: 1, y: 0 },
-      }
-    : {
-        initial: { opacity: 0, scale: 0.94, y: 16 },
-        whileInView: { opacity: 1, scale: 1, y: 0 },
-        viewport: { once: true, amount: 0.4 },
-      }
+  const motionProps =
+    staticDisplay || priority
+      ? { initial: false, animate: { opacity: 1, scale: 1, y: 0 } }
+      : {
+          initial: { opacity: 0, scale: 0.96, y: 12 },
+          whileInView: { opacity: 1, scale: 1, y: 0 },
+          viewport: { once: true, amount: 0.2 },
+        }
 
   const isZoomed = hoverZoom && !reducedMotion && (hovered || active)
   const imageScale = isZoomed ? 1.14 : 1
@@ -43,7 +45,8 @@ export default function ProfilePhoto({
       src={profile.photoUrl}
       alt={profile.photoAlt}
       className="profile-photo-image"
-      loading={priority ? 'eager' : 'lazy'}
+      loading={priority || staticDisplay ? 'eager' : 'lazy'}
+      fetchPriority={priority ? 'high' : 'auto'}
       decoding="async"
       draggable={false}
       animate={{ scale: imageScale }}
@@ -54,7 +57,7 @@ export default function ProfilePhoto({
   return (
     <motion.figure
       {...motionProps}
-      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       className={`profile-photo ${hoverZoom ? 'profile-photo-hover-zoom' : ''} ${wrap} ${className}`}
     >
       <span className="profile-photo-ring" aria-hidden="true" />

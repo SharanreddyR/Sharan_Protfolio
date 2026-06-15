@@ -3,7 +3,8 @@ import { motion } from 'framer-motion'
 import LeafButton from './LeafButton'
 import ProfilePhoto from './ProfilePhoto'
 import { IconMail, IconPhone } from './Icons'
-import { profile, socialLinks, contactLinks } from '../data/content'
+import { profile, socialLinks, contactLinks, inquiryTemplates, getInquiryMailto } from '../data/content'
+import { downloadVCard, sharePortfolio } from '../utils/contactHelpers'
 
 const socialIconMap = {
   LinkedIn: 'linkedin',
@@ -61,7 +62,7 @@ function ContactIdentity() {
       className="contact-identity-panel"
     >
       <div className="contact-identity-photo-wrap">
-        <ProfilePhoto size="contact" hoverZoom className="!mx-0" />
+        <ProfilePhoto size="contact" hoverZoom staticDisplay priority className="!mx-0" />
       </div>
 
       <div className="mt-6 text-center lg:text-left">
@@ -102,6 +103,7 @@ function ContactIdentity() {
 
 export default function Contact() {
   const [copied, setCopied] = useState(false)
+  const [shared, setShared] = useState(false)
 
   const copyEmail = async (e) => {
     e.preventDefault()
@@ -111,6 +113,14 @@ export default function Contact() {
       setTimeout(() => setCopied(false), 2000)
     } catch {
       window.location.href = contactLinks.mailto
+    }
+  }
+
+  const handleShare = async () => {
+    const result = await sharePortfolio()
+    if (result) {
+      setShared(true)
+      setTimeout(() => setShared(false), 2000)
     }
   }
 
@@ -174,22 +184,48 @@ export default function Contact() {
             </div>
 
             <div className="mt-10 border-t border-moss/15 pt-8">
+              <p className="text-[0.58rem] font-bold uppercase tracking-[0.24em] text-forest/40">
+                Start with a template
+              </p>
+              <p className="mt-2 text-sm text-forest/70">
+                Pick a project type — opens email with a ready-made message for clients.
+              </p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {inquiryTemplates.map((template) => (
+                  <a
+                    key={template.label}
+                    href={getInquiryMailto(template)}
+                    className="tag-pill transition-colors hover:border-moss/50 hover:bg-sage/70"
+                  >
+                    {template.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-10 border-t border-moss/15 pt-8">
               <p className="text-[0.58rem] font-bold uppercase tracking-[0.24em] text-forest/40">Quick Actions</p>
               <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                {/* <LeafButton icon="mail" href={`mailto:${profile.email}?subject=Project%20Inquiry&body=Hi%20Sharan%2C%0A%0A`}>
+                <LeafButton icon="mail" href={contactLinks.mailto}>
                   Compose Email
-                </LeafButton> */}
-                {/* <LeafButton icon="phone" href={`tel:${profile.phoneTel}`} variant="outline">
+                </LeafButton>
+                <LeafButton icon="phone" href={contactLinks.tel} variant="outline">
                   Call Now
-                </LeafButton> */}
-                {/* <LeafButton icon="whatsapp" href={profile.whatsapp} variant="outline" external>
+                </LeafButton>
+                <LeafButton icon="whatsapp" href={profile.whatsapp} variant="outline" external>
                   WhatsApp
-                </LeafButton> */}
+                </LeafButton>
                 <LeafButton icon="download" href={profile.resumeUrl} download={profile.resumeFileName} variant="outline">
                   Download Resume
                 </LeafButton>
                 <LeafButton type="button" icon={copied ? 'check' : 'copy'} onClick={copyEmail} variant="ghost">
                   {copied ? 'Email Copied!' : 'Copy Email'}
+                </LeafButton>
+                <LeafButton type="button" icon="download" onClick={downloadVCard} variant="ghost">
+                  Save Contact
+                </LeafButton>
+                <LeafButton type="button" icon="external" onClick={handleShare} variant="ghost">
+                  {shared ? 'Link Copied!' : 'Share Portfolio'}
                 </LeafButton>
               </div>
             </div>

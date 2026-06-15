@@ -208,7 +208,9 @@
   }
 
   .profile-photo-image {
-    @apply relative z-10 h-full w-full object-cover object-top shadow-leaf-hover;
+    @apply relative z-20 block h-full w-full object-cover object-top;
+    box-shadow: 0 4px 14px rgba(26, 58, 43, 0.15);
+    transform: translateZ(0);
     transform-origin: center top;
   }
 
@@ -242,7 +244,7 @@
   }
 
   .contact-identity-panel {
-    @apply relative overflow-hidden rounded-leaf border border-moss/30 bg-white/80 p-6 shadow-leaf backdrop-blur-xl lg:sticky lg:top-28 lg:p-7;
+    @apply relative overflow-visible rounded-leaf border border-moss/30 bg-white/80 p-6 shadow-leaf backdrop-blur-xl lg:sticky lg:top-28 lg:p-7;
   }
 
   .contact-identity-panel::before {
@@ -322,6 +324,55 @@
   .contact-premium-tile:hover .contact-premium-tile-arrow {
     @apply border-moss/45 bg-forest text-white;
     transform: translateX(3px);
+  }
+
+  .main-with-dock {
+    @apply pb-24 md:pb-0;
+  }
+
+  .quick-actions-dock {
+    @apply fixed inset-x-0 bottom-0 z-50 grid grid-cols-4 items-stretch border-t border-moss/25 bg-white/95 shadow-[0_-8px_32px_rgba(26,58,43,0.1)] backdrop-blur-xl;
+    padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+  }
+
+  .quick-action-dock-btn {
+    @apply flex min-h-[4.25rem] flex-col items-center justify-center gap-1 border-r border-moss/15 px-1 py-2 text-forest transition-colors active:bg-sage/60;
+  }
+
+  .quick-action-dock-btn:last-child {
+    @apply border-r-0;
+  }
+
+  .quick-action-dock-btn.is-primary {
+    @apply bg-forest text-white active:bg-[#143022];
+  }
+
+  .quick-action-dock-top {
+    @apply opacity-40;
+  }
+
+  .quick-action-dock-top.is-visible {
+    @apply opacity-100;
+  }
+
+  .quick-action-dock-label {
+    @apply text-[0.58rem] font-bold uppercase tracking-[0.12em];
+  }
+
+  .quick-actions-float {
+    @apply fixed bottom-6 right-6 z-50 flex-col items-end gap-3;
+  }
+
+  .quick-action-float-btn {
+    @apply flex h-12 w-12 items-center justify-center rounded-full border border-moss/30 bg-white/95 text-forest shadow-leaf transition-transform hover:scale-105 active:scale-95;
+  }
+
+  .quick-action-float-btn.is-primary {
+    @apply border-forest bg-forest text-white shadow-leaf-hover hover:bg-[#143022];
+  }
+
+  .quick-action-float-top {
+    @apply text-base font-bold;
   }
 }
 
