@@ -33,7 +33,6 @@ export default function App() {
         <div className="mx-auto max-w-6xl">
           <div className="grid gap-8 md:grid-cols-3 md:items-start">
             <div className="flex flex-col items-center gap-4 sm:flex-row sm:items-start">
-              <ProfilePhoto size="sm" hoverZoom className="!mx-0 shrink-0" />
               <div className="text-center sm:text-left">
                 <Logo as="div" size="sm" showWordmark className="!gap-2 justify-center sm:!justify-start" />
                 <p className="mt-2 text-xs text-forest/45">{profile.timezone}</p>
